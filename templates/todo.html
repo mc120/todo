@@ -1,0 +1,28 @@
+<html>
+<head>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
+</head>
+<body>
+    <header>
+        <h1 align='center'>TO DO LIST</h1>
+    </header>
+<div>
+<ul>
+    {% for todo_item in all_items %}
+        <li>{{ todo_item.content }}
+            <form action="/deleteTodo/{{todo_item.id}}/" 
+                style="display: inline;"    
+                method="POST">{% csrf_token %}
+                <input type="submit" value="Eliminar"/>
+            </form>
+        </li>
+    {% endfor %}
+</ul>
+</div>
+<form action="/addTodo/" method="POST">{% csrf_token %}
+    <input type="text" name="content"/>
+    <input type="submit" value="Agregar"/>
+</form>
+</body>
+</html>
